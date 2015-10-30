@@ -8,10 +8,6 @@
  * http://code.gurock.com/p/smartinspect-postsharp/
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Gurock.SmartInspect.PostSharp
 {
 	public enum SessionPolicy
@@ -20,5 +16,6 @@ namespace Gurock.SmartInspect.PostSharp
 		TypeName,
 		FullyQualifiedTypeName,
 		Namespace,
+        MemberName
 	}
 }
