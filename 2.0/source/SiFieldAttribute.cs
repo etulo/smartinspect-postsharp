@@ -145,9 +145,7 @@ namespace Gurock.SmartInspect.PostSharp
 
 		protected virtual string FormatSessionName(LocationInfo targetLocation)
 		{
-			return SessionHelper.GetName(m_SessionPolicy,
-				targetLocation.DeclaringType.Name, targetLocation.DeclaringType.Namespace, 
-				m_SessionName);
+			return SessionHelper.GetName(m_SessionPolicy, targetLocation, m_SessionName);
 		}
 
 		public string SessionName

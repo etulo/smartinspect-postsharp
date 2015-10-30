@@ -35,9 +35,7 @@ namespace Gurock.SmartInspect.PostSharp
 
 		protected virtual string FormatSessionName(MethodBase method)
 		{
-			return SessionHelper.GetName(m_SessionPolicy,
-				method.DeclaringType.Name, method.DeclaringType.Namespace,
-				m_SessionName);
+			return SessionHelper.GetName(m_SessionPolicy, method, m_SessionName);
 		}
 
 		protected virtual string FormatMethodName(MethodBase method)

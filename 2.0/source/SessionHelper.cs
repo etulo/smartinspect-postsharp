@@ -8,10 +8,8 @@
  * http://code.gurock.com/p/smartinspect-postsharp/
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
+using PostSharp.Reflection;
 
 namespace Gurock.SmartInspect.PostSharp
 {
@@ -29,8 +27,7 @@ namespace Gurock.SmartInspect.PostSharp
 			return session;
 		}
 
-		public static string GetName(SessionPolicy policy, string typeName,
-			string typeNamespace, string customName)
+		public static string GetName(SessionPolicy policy, MemberInfo memberInfo, string customName)
 		{
 			switch (policy)
 			{
@@ -45,16 +42,47 @@ namespace Gurock.SmartInspect.PostSharp
 					}
 
 				case SessionPolicy.TypeName:
-					return typeName;
+					return memberInfo.DeclaringType.Name;
 
 				case SessionPolicy.FullyQualifiedTypeName:
-					return typeNamespace + "." + typeName;
+					return memberInfo.DeclaringType.Namespace + "." + memberInfo.DeclaringType.Name;
 
 				case SessionPolicy.Namespace:
-					return typeNamespace;
-			}
+					return memberInfo.DeclaringType.Namespace;
+                case SessionPolicy.MemberName:
+                    return memberInfo.Name;
+            }
 
 			return SiAuto.Main.Name;
 		}
-	}
+
+        public static string GetName(SessionPolicy policy, LocationInfo locationInfo, string customName)
+        {
+            switch (policy)
+            {
+                case SessionPolicy.Custom:
+                    if (customName != null)
+                    {
+                        return customName;
+                    }
+                    else
+                    {
+                        return SiAuto.Main.Name;
+                    }
+
+                case SessionPolicy.TypeName:
+                    return locationInfo.DeclaringType.Name;
+
+                case SessionPolicy.FullyQualifiedTypeName:
+                    return locationInfo.DeclaringType.Namespace + "." + locationInfo.DeclaringType.Name;
+
+                case SessionPolicy.Namespace:
+                    return locationInfo.DeclaringType.Namespace;
+                case SessionPolicy.MemberName:
+                    return locationInfo.Name;
+            }
+
+            return SiAuto.Main.Name;
+        }
+    }
 }
